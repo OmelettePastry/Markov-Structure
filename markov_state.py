@@ -13,7 +13,7 @@ class MarkovState:
     def set_name(self, name):
         self.__name = name
 
-
+    # add transitions
     def add_transition(self, path):
         
         path_found = False
@@ -28,7 +28,8 @@ class MarkovState:
             self.__transitions.append(path)
             
         return not path_found
-            
+
+    # remove transition
     def remove_transition(self, state):
         
         path_found = False

@@ -1,7 +1,9 @@
+# Markov Chain class
 class MarkovChain:
     def __init__(self):
         self.__state_list = []
-        
+
+    # add state
     def add_state(self, state):
         
         state_found = False
@@ -16,7 +18,8 @@ class MarkovChain:
             self.__state_list.append(state)
             
         return not state_found
-        
+
+    # get state
     def get_state(self, name):
         
         state_found = False
