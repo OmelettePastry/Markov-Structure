@@ -1,4 +1,4 @@
-class MarkovPath:
+class MarkovTransition:
     def __init__(self, state, probability, chain):
         self.__name = state.get_name()
         self.__number = 1
