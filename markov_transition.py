@@ -1,6 +1,5 @@
 class MarkovTransition:
-    def __init__(self, state, probability, chain):
-        self.__number = 1
+    def __init__(self, state, probability):
         self.__prob = probability
         self.__state = state
             

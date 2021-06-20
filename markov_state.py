@@ -1,7 +1,9 @@
+from markov_results import MarkovResults
+from markov_transition import MarkovTransition
 
 # Markov Chain state objects
 class MarkovState:
-
+    
     # Constructor
     def __init__(self, name):
         self.__transitions = []     # list possible transitions
@@ -14,37 +16,48 @@ class MarkovState:
         self.__name = name
 
     # add transitions
-    def add_transition(self, path):
+    def add_transition(self, state_to, probability):
         
         path_found = False
         index = 0
-        
+        result = -1
+
         while (path_found == False) and (index < len(self.__transitions)):
-            if (path.get_name() == self.__transitions[index].get_name()):
+            if (state_to.get_name() == self.__transitions[index].get_name()):
                 path_found = True
+                result = MarkovResults.TRANSITION_ALREADY_EXIST
             index = index + 1
             
         if (path_found == False):
-            self.__transitions.append(path)
+            self.__transitions.append(MarkovTransition(state_to, probability))
+            result = MarkovResults.SUCCESS
             
-        return not path_found
+        return result
 
     # remove transition
     def remove_transition(self, state):
         
-        path_found = False
+        transition_found = False
         index = 0
+        result = -1
         
-        while (path_found == False) and (index < len(self.__transitions)):
+        while (transition_found == False) and (index < len(self.__transitions)):
             if (state.get_name() == self.__transitions[index].get_name()):
-                path_found = True
-                self.__transitions.pop(index)
+                del self.__transitions[index]
+                transition_found = True
+                result = MarkovResults.SUCCESS
             index = index + 1
+
+        if transition_found == False:
+            result = MarkovResults.STATE_NOT_FOUND
         
-        return path_found
+        return result
         
-    def display_paths(self):
+    def paths_string(self):
+
+        string = ""
 
         for i in self.__transitions:
-            print(str(i.get_name()) + ": " + str(i.get_prob()))
-        
+            string = string + i.get_name() + ": " + str(i.get_prob()) + "\n"
+            
+        return string
